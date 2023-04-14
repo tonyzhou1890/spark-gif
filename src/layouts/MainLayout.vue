@@ -1,43 +1,23 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="lHh Lpr lFf" class="layout">
+    <q-header elevated class="header">
       <q-toolbar>
-        <q-btn
-          flat
+        <q-toolbar-title> Spark GIF </q-toolbar-title>
+
+        <q-select
+          class="lang-select"
+          v-model="locale"
+          :options="localeOptions"
+          :label="$t('lang')"
           dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+          borderless
+          emit-value
+          map-options
+          options-dense
+          style="min-width: 100px"
+        ></q-select>
       </q-toolbar>
     </q-header>
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -46,71 +26,48 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import EssentialLink from 'components/EssentialLink.vue';
-
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
+import { defineComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
   name: 'MainLayout',
 
-  components: {
-    EssentialLink
-  },
+  components: {},
 
-  setup () {
-    const leftDrawerOpen = ref(false)
-
+  setup() {
+    const { locale } = useI18n({ useScope: 'global' });
     return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
+      locale,
+      localeOptions: [
+        {
+          value: 'zh-CN',
+          label: '简体中文',
+        },
+        {
+          value: 'en-US',
+          label: 'English',
+        },
+      ],
+    };
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+.layout {
+  .header {
+    .lang-select {
+      :deep(.q-field__inner) {
+        .q-field__label,
+        .q-field__native,
+        .q-field__prefix,
+        .q-field__suffix,
+        .q-field__input,
+        .q-field__marginal {
+          color: white !important;
+        }
       }
     }
   }
-});
-</script>
+}
+</style>

@@ -1,1 +1,38 @@
 // app global css in SCSS form
+// font-style
+.bold {
+  font-weight: bold;
+}
+
+// text-align
+.tac {
+  text-align: center;
+}
+
+// flex
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-content-between {
+  justify-content: space-between;
+}
+
+.flex-content-center {
+  justify-content: center;
+}
+
+// cursor
+.cp {
+  cursor: pointer;
+}

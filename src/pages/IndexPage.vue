@@ -1,49 +1,24 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+    <Start v-show="isStart" @start="changeStart" />
+    <Workbench v-show="!isStart" />
   </q-page>
 </template>
 
 <script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
 import { defineComponent, ref } from 'vue';
+import Start from 'src/components/IndexPage/Start.vue';
+import Workbench from 'src/components/IndexPage/Workbench.vue';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { ExampleComponent },
-  setup () {
-    const todos = ref<Todo[]>([
-      {
-        id: 1,
-        content: 'ct1'
-      },
-      {
-        id: 2,
-        content: 'ct2'
-      },
-      {
-        id: 3,
-        content: 'ct3'
-      },
-      {
-        id: 4,
-        content: 'ct4'
-      },
-      {
-        id: 5,
-        content: 'ct5'
-      }
-    ]);
-    const meta = ref<Meta>({
-      totalCount: 1200
-    });
-    return { todos, meta };
-  }
+  components: { Start, Workbench },
+  setup() {
+    const isStart = ref<boolean>(true);
+    const changeStart = () => {
+      isStart.value = !isStart.value;
+    };
+    return { isStart, changeStart };
+  },
 });
 </script>

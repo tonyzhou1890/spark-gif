@@ -1,5 +1,5 @@
 import { boot } from 'quasar/wrappers';
-import Quasar from 'quasar';
+import { Quasar } from 'quasar';
 
 const langList = import.meta.glob(
   '../../node_modules/quasar/lang/(en-US|zh-CN).mjs'
