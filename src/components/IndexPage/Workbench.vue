@@ -210,7 +210,7 @@ export default defineComponent({
       }
       .bottom-actions-wrapper {
         width: 150px;
-        height: 70px;
+        height: 90px;
         .actions-row {
           margin-bottom: 5px;
         }
