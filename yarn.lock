@@ -556,9 +556,9 @@ ajv@^8.0.1:
     uri-js "^4.2.2"
 
 amazing-gif@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmmirror.com/amazing-gif/-/amazing-gif-0.1.0.tgz#bc7a4b70c277ef1a87928941fcd42d7094cc7178"
-  integrity sha512-Z6TMJ/XgOVLJ2epadwKihp2HNyt2zRd43H+imygmCE+8SQqd3ychuVfBM6IEQB3DVTc49uiZfIVV1VX0qSz8gw==
+  version "0.1.2"
+  resolved "https://registry.npmmirror.com/amazing-gif/-/amazing-gif-0.1.2.tgz#db097c1ff3caa2e30d5e15ea215e39f721e5b869"
+  integrity sha512-5WBUylzdOHeSRHuemIInIm2VusTOEAat9pKq5iDeqjMBtp+4F03oVL/zoKnPhLsntzNnzT9yyPuKagA9pdjkIw==
 
 ansi-escapes@^4.2.1:
   version "4.3.2"

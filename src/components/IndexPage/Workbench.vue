@@ -2,7 +2,7 @@
   <div class="workbench flex flex-column flex-content-center">
     <ul class="images tac">
       <li v-for="(item, index) in framesData" :key="item.id" class="image-item">
-        <div class="top-actions-wrapper flex flex-content-between">
+        <!-- <div class="top-actions-wrapper flex flex-content-between">
           <div class="action-item check-wrapper">
             <q-checkbox
               v-model="item.checked"
@@ -18,8 +18,12 @@
               @click="() => handleDelete(index)"
             ></q-icon>
           </div>
-        </div>
-        <div class="image-content flex">
+        </div> -->
+        <div
+          class="image-content flex"
+          :class="item.checked ? 'checked' : ''"
+          @click="() => handleCheck(index)"
+        >
           <img class="image-self" :src="item.base64" />
         </div>
         <div class="bottom-actions-wrapper">
@@ -52,12 +56,13 @@
               dense
               :placeholder="$t('delayPlaceholder')"
               :label="$t('delay')"
+              :rules="[(val) => isEmpty(val) || val >= 0]"
             />
           </div>
         </div>
       </li>
       <li class="image-item upload-item">
-        <div class="top-actions-wrapper"></div>
+        <!-- <div class="top-actions-wrapper"></div> -->
         <div class="image-content upload">
           <Upload
             :multiple="true"
@@ -91,6 +96,7 @@ import { useQuasar } from 'quasar';
 import { useCoreStore } from 'src/stores/core-store';
 import { storeToRefs } from 'pinia';
 import { imageFilesToFramesData } from '../../utils/image';
+import { isEmpty } from 'src/utils/commom';
 
 export default defineComponent({
   name: 'IndexPageStart',
@@ -122,10 +128,9 @@ export default defineComponent({
       console.log(files);
       emit('start');
     };
-    // 删除图片
-    const handleDelete = (index: number) => {
-      console.log(index);
-      framesData.value.splice(index, 1);
+    // 选择图片
+    const handleCheck = (index: number) => {
+      framesData.value[index].checked = !framesData.value[index].checked;
     };
     // 交换图片
     const handleSwap = (a: number, b: number) => {
@@ -136,13 +141,14 @@ export default defineComponent({
     return {
       framesData,
       handleGetFile,
-      handleDelete,
+      handleCheck,
       handleSwap,
       // icons
       matAdd,
       matClose,
       matWest,
       matEast,
+      isEmpty,
     };
   },
 });
@@ -188,6 +194,11 @@ export default defineComponent({
         width: 150px;
         height: 150px;
         background-image: url('../../assets/images/empty-bg.png');
+        &.checked {
+          border-color: $primary;
+          background-color: $secondary;
+          box-shadow: 0 0 3px 3px $primary;
+        }
       }
       .image-self {
         max-width: 100%;

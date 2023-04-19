@@ -1,4 +1,4 @@
-import { FrameData } from 'src/types';
+import { FrameData, Point } from 'src/types';
 import AmzGif from 'amazing-gif';
 
 const gCanvas = document.createElement('canvas');
@@ -162,5 +162,77 @@ export function fileToFramesData(file: File): Promise<Array<FrameData>> {
         })
         .catch((e) => reject(e));
     }
+  });
+}
+
+/**
+ * images to gif buffer
+ * @param images
+ * @returns
+ */
+export function imagesToGif(images: Array<FrameData>): Promise<Uint8Array> {
+  return new Promise((resolve, reject) => {
+    AmzGif.gifKit
+      .build({
+        repetition: 0,
+        frames: images,
+      })
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
+/**
+ * get max width and max height
+ */
+export function getMaxImageSize(...args: Array<ImageData>): Point {
+  return {
+    x: Math.max(...args.map((item) => item.width)),
+    y: Math.max(...args.map((item) => item.height)),
+  };
+}
+
+export function imagesToSingleBlob(
+  images: Array<FrameData>,
+  type?: string,
+  quality?: number
+): Promise<Blob | null> {
+  const size = getMaxImageSize(...images.map((item) => item.imageData));
+  const col = Math.min(5, images.length);
+  const row = Math.ceil(images.length / 5);
+  const canvasWidth = size.x * col;
+  const canvasHeight = size.y * row;
+
+  gCtx.save();
+
+  gCanvas.width = canvasWidth;
+  gCanvas.height = canvasHeight;
+
+  for (let y = 0; y < row; y++) {
+    for (let x = 0; x < col; x++) {
+      const image = images[y * col + x];
+      if (image) {
+        gCtx.putImageData(
+          image.imageData,
+          x * size.x + (((size.x - image.imageData.width) / 2) >> 0),
+          y * size.y + (((size.y - image.imageData.height) / 2) >> 0)
+        );
+      }
+    }
+  }
+
+  return new Promise((resolve) => {
+    gCanvas.toBlob(
+      (blob) => {
+        gCtx.restore();
+        resolve(blob);
+      },
+      type,
+      quality
+    );
   });
 }

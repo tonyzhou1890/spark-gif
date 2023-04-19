@@ -15,3 +15,18 @@ export function shuffle<T>(list: Array<T>): Array<T> {
 
   return res;
 }
+
+/**
+ * check if val is empty
+ * @param val
+ * @returns
+ */
+export function isEmpty<T>(val: T): boolean {
+  return val === '' || val === null || val === undefined;
+}
+
+export function download(blob: Blob) {
+  const url = URL.createObjectURL(blob);
+  window.open(url);
+  // URL.revokeObjectURL(url);
+}
