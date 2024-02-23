@@ -8,11 +8,15 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "quasar dev",
+    "dev:ssr": "quasar dev -m ssr",
+    "build": "quasar build",
+    "build:ssr": "quasar build -m ssr"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
-    "amazing-gif": "^0.1.0",
+    "amazing-gif": "^1.0.0",
     "axios": "^1.2.1",
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",

@@ -1,5 +1,5 @@
 import { FrameData, Point } from 'src/types';
-import AmzGif from 'amazing-gif';
+import { decode, build, getCompositedFramesImageData } from 'amazing-gif';
 
 const gCanvas = document.createElement('canvas');
 const gCtx = gCanvas.getContext('2d') as CanvasRenderingContext2D;
@@ -120,15 +120,14 @@ export function fileToFramesData(file: File): Promise<Array<FrameData>> {
   return new Promise((resolve, reject) => {
     if (file.type === 'image/gif') {
       fileToBuffer(file).then((data) => {
-        AmzGif.gifKit
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          .decode(data, (e: string) => {
-            reject(e);
-            return undefined;
-          })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        decode(data, (e: string) => {
+          reject(e);
+          return undefined;
+        })
           .then((gifData) => {
             if (gifData) {
-              const frames = AmzGif.gifKit.getCompositeFramesImageData(gifData);
+              const frames = getCompositedFramesImageData(gifData);
               resolve(
                 frames.map((item, index) => {
                   return {
@@ -172,11 +171,10 @@ export function fileToFramesData(file: File): Promise<Array<FrameData>> {
  */
 export function imagesToGif(images: Array<FrameData>): Promise<Uint8Array> {
   return new Promise((resolve, reject) => {
-    AmzGif.gifKit
-      .build({
-        repetition: 0,
-        frames: images,
-      })
+    build({
+      repetition: 0,
+      frames: images,
+    })
       .then((data) => {
         resolve(data);
       })
