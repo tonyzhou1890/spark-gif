@@ -622,10 +622,10 @@ ajv@^8.0.1:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-amazing-gif@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmmirror.com/amazing-gif/-/amazing-gif-1.0.0.tgz#f822952731ff033fd3d8c2b5ae1fb0ffd918f43c"
-  integrity sha512-T3mHT4rRt0FuRJGXbVkVBhbr7iymErKgZw8FeEzmEfNUeHEkeIxS8873krCQISgrStT2K1jGU2QVW2Yg1H0c+w==
+amazing-gif@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/amazing-gif/-/amazing-gif-1.0.2.tgz#3e3d48f8cbc778d27acd45443685a670f89329ac"
+  integrity sha512-Lw+/bRjyDbNGZz5So/6Z26goc9YlCTawvIWZeHVPaHFxmILy1tJ1cDMGl0rXHW/IKsAkb3VHTaAqxNGP0MzItA==
   dependencies:
     rollup-plugin-terser "^7.0.2"
 
